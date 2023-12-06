@@ -131,7 +131,7 @@ else
   puts "x is less than or equal to 11"
 end
 ```
-So there are some syntactic differences.  In Ruby, one can often omit the parentheses, and there is the new word "elsif", and curly braces are used less often, except in hashes.
+So there are some syntactic differences.  In Ruby, one can often omit the parentheses, there is the new word "elsif", and curly braces are used less often, except in hashes.
 
 ## Loops in Ruby
 
@@ -188,7 +188,7 @@ The program should do the following:
 
 ## Program 4
 
-Create guesser.rb.  When this program starts, it asks you to think of a number from 1 to 100.  It then makes guesses.  You tell it whether the guess is too low, too high, or correct, until it guesses your number.  The program will need to keep track of the lowest and highest possible remaining values, and it should guess something between them.  The program should prompt you again if you say something besides "too low", "too high" or "correct".  The program should also handle the case where you are lying, and should call you out.  You are lying if the program correctly guesses the number, but you don't say so.  You are lying if you tell the program that its guess is too low, when it's really too high, or vice versa.  Of course, the program won't be able to tell right away that you are lying.  Make the program efficient -- basically a binary search.  Once it guesses correctly, or figures out you are lying, it should prompt you to play again, exiting if you decline.
+Create guesser.rb.  When this program starts, it asks you to think of a number from 1 to 100.  It then makes guesses.  You tell it whether the guess is too low, too high, or correct, until it guesses your number.  The program will need to keep track of the lowest and highest possible remaining values, and it should guess something between them.  The program should prompt you again if you say something besides "too low", "too high" or "correct".  The program should also handle the case where you are lying, and should call you out.  You are lying if the program correctly guesses the number, but you don't say so.  You are lying if you tell the program that its guess is too low, when it's really too high, or vice versa.  Of course, the program won't be able to tell right away that you are lying, as it will have to exhaust the possible answers.  Make the program efficient -- basically a binary search.  Once it guesses correctly, or figures out you are lying, it should prompt you to play again, exiting if you decline.
 
 ## Submitting Your Work
 
@@ -277,6 +277,7 @@ Let's create a couple of classes.
 ```
 class RectangleOne  # Note: CamelCase, starting with a capital, is used for classes.
   attr_accessor :width, :height
+  @@count = 0
 
   def initialize(width, height)
     @width = width
@@ -285,6 +286,10 @@ class RectangleOne  # Note: CamelCase, starting with a capital, is used for clas
 
   def area
     @width * @height
+  end
+  def self.report
+    @@count += 1
+    puts "RectangleOne, reporting.  This method has been invoked #{@@count} times."
   end
 end
 
@@ -308,6 +313,9 @@ class RectangleTwo
   end
 end
 
+RectangleOne.report
+RectangleOne.report
+
 rect1 = RectangleOne.new(5,4)
 rect2 = RectangleOne.new(6,3)
   
@@ -323,9 +331,17 @@ puts rect3.width
 puts rect3.height # throws an error
 
 ```
-Ok, deep breath, let's see what are special about Ruby classes.  First, you often have an initializer.  This is a method of the class that is called when you create an instance of the class.  To create an instance of the class, you call the new method on the class itself.  Second, you typically have instance variables.  These are values stored with that instance.  Each instance has a different set of values for instance variables.  The instance variables always start with @.  That's the only way to keep values associated with the instance.  The class may have one or more instance methods, such as area in the examples above.  A method is a function associated with an instance of a class.  If you run the program above (you will get an error to be explained shortly), you note that rect2 has a different area than rect1.  They are separate instances of the same class.
+Ok, deep breath, let's see what are special about Ruby classes.
+
+First, you often have an initializer.  This is a method of the class that is called when you create an instance of the class.  To create an instance of the class, you call the new method on the class itself.  Second, you typically have instance variables.  These are values stored with that instance.  Each instance has a different set of values for instance variables.  The instance variables always start with @.  That's the only way to keep values associated with the instance.  The class may have one or more instance methods, such as area in the examples above.  A method is a function associated with an instance of a class.  If you run the program above (you will get an error to be explained shortly), you note that rect2 has a different area than rect1.  They are separate instances of the same class.
 
 Once you store the instance variables, how can you get access? Any instance method of the class has access to those variables.  Also, if you use the attr_accessor for the instance variable names, as in RectangleOne, you have access.  This is why rect1.height and rect1.width return values.  One can also set those values.
+
+Classes can also have class methods.  These are typically declared with a "self." at the start of the name, as in self.report for RectangleOne.  You do not need an instance of the class to invoke a class method.  You just use the class name, as in:
+```
+RectangleOne.report
+```
+We will use class methods a lot in Rails, especially in Active Record access to a database.  You can also have class variables, which are only used by class methods.  Class variables start with "@@", as in the count method above.  The class itself and all instances of that class share a single copy of the class variable.
 
 However, the RectangleTwo class does not use attr_accessor.  Instead, it defines getter and setter methods for the width attribute.  So, rect3.width returns the value of the @width instance variable for rect3.  Also, the width= setter method (note the special name, with an = at the end) allows one to set the width.  But, there is no getter or setter for height in RectangleTwo -- that is why the program returns an error.  The only way to set the height is when the instance is created.
 
@@ -339,7 +355,7 @@ Here, a class is being declared that inherits from the ApplicationController cla
 
 ## Ruby Modules
 
-Sometimes, you want to implement the same behaviors in several classes.  Of course you don't want to repeat yourself.  In this case, you implement a module, and you require or include the module in each of the classes where it is needed.  You'll see this a lot in Rails. For example, both RectangleOne and RectangleTwo have a method called area, the same in each case.  One could instead create an Area module, in which case it would not be necessary to declare the area method inside each class:
+Sometimes, you want to implement the same behaviors in several classes.  Of course you don't want to repeat yourself.  In this case, you implement a module, and you *include* the module in each of the classes where it is needed.  You'll see this a lot in Rails. For example, both RectangleOne and RectangleTwo have a method called area, the same in each case.  One could instead create an Area module, in which case it would not be necessary to declare the area method inside each class:
 ```
 module Area
   def area
@@ -357,6 +373,23 @@ class RectangleTwo
   ...
 end
 ```
+
+## Ruby Require
+
+You can split a ruby program into several files.  For example, one could put the Area module above into a file named area.rb, and put the rest of the rectangle code above into rectangle.rb, which would be the main file.  At the top of rectangle.rb, one would put a statement:
+```
+require './area.rb'
+```
+Then, when you do "ruby rectangle.rb" both files are read in and executed.  Of course, code in classes, modules, and functions are not run until those classes or modules or functions are used.
+
+The require statement is also used to load Ruby gems, as we'll cover below.
+
+## Ruby Standard Library and Ruby Gems
+
+As you write Ruby programs, you have to use a variety of classes and modules.  These include basic ones like String and Hash and Array, but there are many more in the standard library.  These are documented at [https://ruby-doc.org/](https://ruby-doc.org/).  As you practice with Ruby, you should refer to that documentation.
+
+In addition to the standard library, there are gems.  These are libraries of classes and modules that you can install and use.  These are available at [https://rubygems.org/](https://rubygems.org/).  Gems in Ruby are like npm packages in JavaScript.  We will use many.  Rails itself is a gem.  An exercise below will show you the steps in installing and using a gem.
+
 ## More Reading
 
 Please read the following sections from [this reference:](https://github.com/gauthamchandra/learning-ruby-from-js)
@@ -441,7 +474,24 @@ the array is sorted in order of copies, and print out the array.
 (6) Create a program block_function.rb.  It should have a function do_calc that calls a
 block using a yield statement.  The yield statement will pass the numbers 7 and
 9 to a block, and then do_calc will print out the result returned by the yield.  Call the do_calc function twice in your program. The first time, pass a block that adds the two numbers. The second time,
-pass a block that multiplies the two numbers.  Your program should print out 16 and 63.   
+pass a block that multiplies the two numbers.  Your program should print out 16 and 63.
+
+(7) Using a gem:  To use a gem, you need a Gemfile. This is a list of the gems your program requires, so that others can run your program.  While in the directory for this repository, type the following:
+```
+bundle init
+bundle add faker
+```
+The first line above creates the Gemfile.  The second installs a gem called faker and adds a reference to the gem in the Gemfile.  Others who run your program can do "bundle install" to install the same gems used by your program. The faker gem is used for testing, in that it can generate random names, phone numbers, email addresses, passwords, and so on for use in a test scenario.
+
+Write a program called chuck_norris_facts.rb.  It should have a loop that prompts the user whether they want to know a fact about Chuck Norris.  If so, it displays a random Chuck Norris fact, and then prompts the user again.  If the user declines, the program exits.  You use the ChuckNorris module of the faker gem.  The documentation for faker is [here.](https://rubydoc.info/github/faker-ruby/faker)  In order to have access to the faker gem, you need to have the following line in your program:
+```
+require 'faker'
+```
+The following line prints out a Chuck Norris fact:
+```
+puts Faker::ChuckNorris.fact
+```
+The modules comprising the Faker gem are organized into namespaces.  The ChuckNorris module is within the Faker module, which is the meaning of the "::" above.  Complete and try your program.
 
 ## Submitting Your Work
 
