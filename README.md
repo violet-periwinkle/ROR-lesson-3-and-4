@@ -73,7 +73,7 @@ washington_hash[:rank] = "general"
 ```
 The keys for hashes are not always symbols -- they can be any object type.  Also the values can be any object type.  
 
-Everything in Ruby is an object.  In this case, we are using an object that belongs to the Hash class.  Next, we'll use a tool called interactive ruby to explore these ideas.  Type the following:
+Everything in Ruby is an object.  In this case, we are using an object that belongs to the Hash class.  Next, we'll use a tool called interactive ruby (irb) to explore these ideas.  Type the following:
 ```
 irb
 example_string = "this is a string."
@@ -85,6 +85,22 @@ this_hash.methods
 quit
 ```
 As you saw, there are many methods associated with the Hash class. You could, for example, do ```this_hash.length```.  Now, you won't be able to remember all the methods of a given class.  So you need to get in habit of looking them up.  The reference is [here.](https://ruby-doc.org/).  Go to the API docs for Ruby 3.2.2, and then search on Hash.  You'll find methods that may be useful.
+
+## Percent Notation
+
+In various Ruby and Rails programs, you will see percent notation.  This is an easy way to create arrays and quoted strings.  You can create an array of words or symbols.  Also, you can create a string with both single quotes and double quotes inside it.  In either case, there are other ways to create these values, but percent notation saves typing.  Use IRB again to experiment (you don't have to type the comments):
+```
+irb
+# an array of strings
+puts %w[aaa bbb ccc ddd].inspect
+# an array of symbols
+puts %i[aaa bbb ccc ddd].inspect
+# A string that has both single and double quotes in it
+puts %q["What's that again?"]
+# Compare that with this string, that has a single quote in it but does not contain double quotes
+puts "What's that again?"
+quit
+```
 
 ## Next Program
 
