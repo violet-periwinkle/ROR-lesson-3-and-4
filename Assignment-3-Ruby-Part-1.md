@@ -17,7 +17,7 @@ Create second.rb.  It should do the following:
 - Change the state as stored in the person hash to upper case.
 - Put the hash to the console again.
 
-Functions follow the same naming convention as variables, except that a function might end with a "?", which means it returns true or false; or a function might end with a "!", which means that it changes the value, as well as returning the new value; or a function might end with a "=" which means that it's a setter.  We'll get to setters when we get to classes. 
+Functions follow the same naming convention as variables, except that a function might end with a "?", which means it returns true or false; or a function might end with a "!", which means that it changes the passed in value (often an array or hash), as well as returning the chamged value; or a function might end with a "=" which means that it's a setter.  We'll get to setters when we get to classes. 
 
 ## Flow of Control
 
@@ -43,7 +43,7 @@ else
   puts "x is less than or equal to 11"
 end
 ```
-So there are some syntactic differences.  In Ruby, one can often omit the parentheses, there is the new word "elsif", and curly braces are used less often, except in hashes.
+As you can see, there are some syntactic differences.  For example, there is the new word "elsif", and curly braces are used less often, except in hashes.
 
 ## Loops in Ruby
 
@@ -77,7 +77,7 @@ x = 0
 
 until x > 9 do
   x += 1
-  if x == 5  # You could also have: if x == 5 then next 
+  if x == 5  # You could also have: ```if x == 5 then next``` in which case you don't need the ```end```.
     next
   end
   puts x
