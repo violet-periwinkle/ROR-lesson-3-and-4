@@ -39,13 +39,21 @@ Now run it in your terminal:
 ```
 ruby first.rb
 ```  
-You'll get an error (after putting in your name) because the last line references an uninitialized variable. Note that Ruby tells you where the error is.  So remove that last line and run the program again.  
+You'll get an error (after putting in your name) because the last line references an uninitialized variable. Note that Ruby tells you where the error is.  So remove that last line and run the program again.
+
+The puts call is a call to a function.  Ruby does not require parentheses for function calls, provided that the argument is the last thing on the line.  You can put the parentheses in, and sometimes it is wise to do so for clarity.  The gets call is also a call to a function, and that call is chained to another function call, chomp.  So you could write this as
+```
+gets().chomp()
+```
+if you wanted to be a little verbose.  
+
+Also, comments start with the ```#``` sign.  Everything in the line after that is a comment.
 
 Ok, so much for preliminaries.  Now read [this.](https://github.com/gauthamchandra/learning-ruby-from-js/blob/master/primitives_and_other_basics.md) Read it carefully.  You might not catch on to everything at first reading.
 
 ## Ruby Symbols and Hashes
 
-One of the things that happens a lot in Ruby is that you create a *hash*.  A hash is a collection of ordered pairs, where each pair is a key and a value.  JavaScript calls hashes objects, but in Ruby, a hash is only one class of object, and there are many other object classes.  In Ruby, the keys for hashes are often symbols.  A symbol starts with a colon followed by some descriptive string.  So you might have the following symbols:
+One of the things that happens a lot in Ruby is that you create a *hash*.  A hash is a collection of ordered pairs, where each pair is a key and a value.  JavaScript uses the word "object" for hashes, but in Ruby, a hash is only one class of object, and there are many other object classes.  In Ruby, the keys for hashes are often symbols.  A symbol starts with a colon followed by some descriptive string.  So you might have the following symbols:
 ```
 :name
 :year
