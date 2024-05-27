@@ -59,7 +59,7 @@ if you wanted to be a little verbose, but this goes against Ruby convention.
 
 Also, comments start with the `#` sign.  Everything in the line after that is a comment.
 
-Ok, so much for preliminaries.  Now read [this.](https://github.com/gauthamchandra/learning-ruby-from-js/blob/master/primitives_and_other_basics.md) Read it carefully.  You might not catch on to everything at first reading.
+Ok, so much for preliminaries.  Now read [this.](https://github.com/gauthamchandra/learning-ruby-from-js/blob/master/README.md) Read it carefully.  You might not catch on to everything at first reading.
 
 ## Ruby Symbols and Hashes
 
