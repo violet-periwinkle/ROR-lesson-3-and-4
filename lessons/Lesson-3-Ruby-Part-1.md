@@ -6,7 +6,7 @@ You should fork [this repository](https://github.com/Code-the-Dream-School/ROR-l
 
 ## Ruby Basics
 
-Here are three references.  First, [here's a brief summary](https://github.com/gauthamchandra/learning-ruby-from-js/blob/master/README.md) of what you must learn.  You may also want to refer to [this cheatsheet.](https://github.com/gauthamchandra/learning-ruby-from-js/blob/master/README.md)  Finally, if you want to spend more time with a complete tutorial, you could do [the Odin course.](https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/ruby)  You don't need to read all of these now.
+Here are three references.  First, [here's a brief summary](https://github.com/gauthamchandra/learning-ruby-from-js/blob/master/README.md) of what you must learn.  You may also want to refer to [this cheatsheet.](https://github.com/ThibaultJanBeyer/cheatsheets/blob/master/Ruby-Cheatsheet.md)  Finally, if you want to spend more time with a complete tutorial, you could do [the Odin course.](https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/ruby)  You don't need to read all of these now.
 
 You should already have installed Ruby as part of your machine setup.  Windows users should always use the Windows Linux Subsystem for Ruby development.  You can do Ruby in Windows native, but once we get to Rails, Windows native is a very poor environment.  Check right now by entering this command in your terminal:
 
